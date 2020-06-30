@@ -1,0 +1,23 @@
+body{
+    background: url(../img/BOF8ITWU}1Z}4D$N9__]7HG.png) no-repeat;
+    background-size: 100%;
+}
+#box{
+    background-color: black;
+    width: 300px;
+    height: 360px; 
+    text-align:center;
+    opacity: 0.6;
+    margin-top: 50px;
+    
+}
+#box img{
+    width: 95px;
+    margin-top: 20px;
+}
+#myform{
+    margin-top: 20px;
+}
+#bt{
+    width: 90px;
+}

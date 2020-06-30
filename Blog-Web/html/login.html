@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script type="text/javascript" src="../js/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.js"></script>
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+<body>
+    <div id="box" class="col-md-2 col-md-offset-5">
+        <img src="../img/head.jpg" class="img-circle">
+        <form id="myform">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="user name" id="na" value="">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="password" id="pa" value="">
+            </div>
+            
+                <button class="btn btn-default" id="bt"><a href="index.html">sign in</a></button>
+           
+        </form>
+    </div>
+    <script>
+        var my_na=document.getElementById("na").value;
+        var my_pa=document.getElementById("ps").value;
+        function opennew(){
+            if(my_na=="1234"&&my_pa=="1234")
+            {
+               window.location.href='index.html';
+            }
+            else{
+                alert("密码或用户名输入错误！");
+            }
+        }
+    </script>
+   
+</body>
+</html>

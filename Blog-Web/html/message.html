@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>留言板</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script type="text/javascript" src="../js/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.js"></script>
+    <script type="text/javascript" src="../js/loving.js"></script>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <link rel="stylesheet" href="../css/message.css">
+</head>
+<body>
+    <!-- 导航条 -->
+    <div id="navigation">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#">MESSAGE</a></li>
+            <li><a href="index.html#myBlog">BLOG</a></li>
+            <li><a href="about.html">ABOUT</a></li>
+            <li><a href="index.html">HOME</a></li>
+        </ul>
+    </div>
+    <!-- 图片美化 -->
+    <div id="self">
+        <img src="../img/message.png">
+        <span id="tuwen">Message Board </span>
+    </div>
+    <!-- 留言板部分 -->
+    <div id="mess">
+        <div id="app" class="container">
+            <h3>{{title}}:</h3>
+            <!-- 留言内容 -->
+            <ul class="form-group" style="min-height:130px;overflow: auto;">
+                <li class="list-group-item row" v-for="(item,index) in list" :key="item.id">
+                    <span class="col-sm-2">{{item.nikename}}:</span>
+                    <span class="col-sm-5">{{item.content}}</span>
+                    <span class="col-sm-2">{{item.data}}</span>
+                    <button class="col-sm-1 btn btn-danger" type="button" @click="del(index,item.id)">删除</button>
+                    <button class="col-sm-1 btn btn-info" type="button" @click="checkPre(index,item.id)">修改</button>
+                </li>
+            </ul>
+            <br><br><br>
+            <!-- 功能框部分 -->
+            <form class="form-horizontal" v-show="!bl">
+                <!-- <div class="form-group">
+                    <label for="search" class="col-sm-1 control-label">搜索</label>
+                    <div class="col-sm-11">
+                        query是查询的内容
+                        <input type="text" class="form-control" id="search" placeholder="搜索留言" v-model="query">
+                    </div>
+                </div> -->
+                <div class="form-group">
+                    <label for="nikename" class="col-sm-1 control-label">昵称</label>
+                    <div class="col-sm-11">
+                        <input type="text" class="form-control" id="nikename" placeholder="请输入昵称" v-model="nikenameText">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="content" class="col-sm-1 control-label">内容</label>
+                    <div class="col-sm-11">
+                        <textarea id="content" class="form-control" rows="3" v-model="contentText"></textarea>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-success col-sm-1 col-sm-push-9" @click="add">发表</button>
+                <!-- <button type="button" class="btn btn-danger col-sm-1 col-sm-push-10" @click="clear()">清屏</button> -->
+            </form>
+            <!-- 修改功能部分 -->
+            <form class="form-horizontal" v-show="bl">
+                <div class="form-group">
+                    <label class="col-sm-1 control-l abel">修改：</label>
+                    <div class="col-sm-11">
+                        <textarea class="form-control" rows="3" v-model="changeContentText"></textarea>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-success col-sm-1 col-sm-push-11" @click="confirm()">确认修改</button>
+            </form>
+        </div>
+    </div>
+    <!-- 页尾 -->
+    <div id="tail">
+        <br><br>
+        <p style="font-size: 20px;margin-left: 100px;margin-bottom: 70px;">湖北文理学院 计算机工程学院 软件工程1811班</p>
+        <!-- <div>
+            <img src="../img/qr.jpg" id="qr">
+        </div> -->
+        <div class="media" class="col-md-4">
+            <div class="media-left">
+                <img src="../img/qr.jpg" class="media-object" id="qr">
+            </div>
+            <div class="media-body">
+                <h4>这只是一个二维码</h4>
+                <div>扫不扫，您随意</div>
+                <div style="float: right;margin-right: 10px;">
+                    <p>湖北省襄阳市襄城区隆中街道296号</p>
+                    <p>Designed And Created By ChenQing </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                title:"留言板",
+                nikenameText:'',
+                contentText:'',
+                data:'',
+                // query:'',
+                changeContentText:'',
+                bl:false,
+                index:null,
+                list:[
+                    {id:1,nikename:"用户1",content:"留言1",data:"Sat Jun 20 2020 18:55:40 GMT+0800 (中国标准时间)"},
+                    {id:2,nikename:"用户2",content:"留言2",data:"Sat Jun 20 2020 18:55:40 GMT+0800 (中国标准时间)"},
+                    // {id:3,nikename:"匿名用户3",content:"留言",data:"2020-6-20"},
+
+                ]
+            },
+            methods:{
+                add(){
+                    const contentText=this.contentText.trim();
+                    const list=this.list;
+                    const nikenameText=this.nikenameText;
+                    this.list.push({
+                        id:list[list.length-1].id+1,
+                        nikename:nikenameText,
+                        content:contentText,
+                        data:new Date(),
+                    })
+                    //发表后将昵称和内容清空
+                    this.nikenameText='';
+                    this.contentText='';
+                },
+                del(index,id){
+                    this.list.splice(index,1)
+                },
+                // clear(){
+                //     this.list=[];
+                // },
+                checkPre(index,id){
+                    this.bl=!this.bl;
+                    this.nikename=this.list[index].nikename;
+                    this.index=index;
+                    
+                },
+                // 修改
+                confirm(){
+                    // console.log(this.changeContentText)
+                    // console.log(this.item)
+                    this.list[this.index].content=this.changeContentText;
+                    this.bl=!this.bl;
+                    this.changeContentText='';
+                    // this.list.forEach(function(item,index){
+                    //     if(item.nikename==this.nikename){
+                    //         item.content=this.changeContent;
+                    //         // item.data=.getdata();
+                    //     }
+                    // })
+                    // this.bl=!this.bl;
+                    // this.nikename="";   
+
+                },
+               
+
+            },
+        });
+
+    </script>
+</body>
+</html>

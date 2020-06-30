@@ -1,0 +1,50 @@
+body{
+    /* color:white; */
+    margin: 0px;
+    padding: 0px;
+}
+#navigation{
+    background-color: black;
+    opacity: 0.8;
+    margin: 0px;
+    padding: 0px;
+    
+}
+/* #navigation ul{
+    height: 80px;
+} 
+*/
+#navigation ul li{
+    float: right;
+    margin-right: 100px;
+}
+#myCarousel img{
+    height: 950px;
+    margin: 0px;
+    padding: 0px;
+}
+#myBlog{
+    height: 800px;
+    background-color:gainsboro;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-bottom: 20px;
+    padding-right:1px;
+}
+#myBlog p{
+    font-size:20px;
+    margin-left: 20px;
+    
+}
+/* #myBlog div{
+    margin: 5px;
+} */
+#tail{
+    height: 300px;
+    background-color: black;
+    opacity: 0.8;
+}
+#qr{
+    width: 150px;
+    margin-left: 80px;
+}
